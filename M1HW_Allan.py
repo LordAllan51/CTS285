@@ -36,7 +36,18 @@ def Multiply():
     print()
     print(num1,"*",num2,"=",product)
 
-
+def rep(validation):
+    while validation == 0:
+        print("1. Repeat")
+        print("2. Main Menu")
+        select = int(input("Enter a number:"))
+        print()
+        if select == 1:
+            return (0)
+        elif select == 2:
+            return (1)
+        else:
+            print("Invalid option! Please choose within 1 and 2.")
         
 def DisplayMenu():
     print("Welcome to the calculator program")
