@@ -6,8 +6,8 @@
 def Add():
     keepgoing = 0
     while keepgoing == 0:
-        num1 = int(input("Enter a number:"))
-        num2 = int(input("Enter a number:"))
+        num1 = int(input("Enter a number [1]:"))
+        num2 = int(input("Enter a number [2]:"))
         sums = num1 + num2
         print()
         print(num1,"+",num2,"=",sums)
@@ -16,25 +16,44 @@ def Add():
         keepgoing = rep(validation)
     
 def Subtract():
-    num1 = int(input("Enter a number:"))
-    num2 = int(input("Enter a number:"))
-    difference = num1 - num2
-    print()
-    print(num1,"-",num2,"=",difference)
+    keepgoing = 0
+    while keepgoing == 0:
+        num1 = int(input("Enter a number [1]:"))
+        num2 = int(input("Enter a number [2]:"))
+        difference = num1 - num2
+        print()
+        print(num1,"-",num2,"=",difference)
+        
+        validation = 0
+        keepgoing = rep(validation)
     
 def Divide():
-    num1 = int(input("Enter a number:"))
-    num2 = int(input("Enter a number:"))
-    quotient = num1 // num2
-    print()
-    print(num1,"/",num2,"=",quotient)
+    keepgoing = 0
+    while keepgoing == 0:
+        num1 = int(input("Enter a number [1]:"))
+        num2 = int(input("Enter a number [2]:"))
+        if num2 == 0:
+            print("Second Number must not be 0!")
+            keepgoing = 0
+        else:
+            quotient = num1 / num2
+            print()
+            print(num1,"/",num2,"=",quotient)
+            
+            validation = 0
+            keepgoing = rep(validation)
 
 def Multiply():
-    num1 = int(input("Enter a number:"))
-    num2 = int(input("Enter a number:"))
-    product = num1 * num2
-    print()
-    print(num1,"*",num2,"=",product)
+    keepgoing = 0
+    while keepgoing == 0:
+        num1 = int(input("Enter a number [1]:"))
+        num2 = int(input("Enter a number [2]:"))
+        product = num1 * num2
+        print()
+        print(num1,"*",num2,"=",product)
+        
+        validation = 0
+        keepgoing = rep(validation)
 
 def rep(validation):
     while validation == 0:
