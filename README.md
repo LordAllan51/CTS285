@@ -1,3 +1,3 @@
 # CTS285
 
-Project Calculator
+# Lord Jenar Adolph C Allan
