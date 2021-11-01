@@ -10,28 +10,51 @@ ______Sprint 1______
    
 Main Menu:
 -----------
-    Placeholder functions and a menu displayed with working paths.
+Placeholder functions and a menu displayed with working paths.
     
 Basic Calculator:
 ------------------
-    The caclulator use the operands in a menu and enter your number and passes 
-    the equation through an if-elif-else code then displays the answer to 
-    the entered equation using the choosen operand from the menu.
+The caclulator use the operands in a menu and enter your number and passes 
+the equation through an if-elif-else code then displays the answer to 
+the entered equation using the choosen operand from the menu.
 ______Sprint 2______
 Basic Calculator
 -----------------
-   Refactored, the processing component to a new module calculation core. 
-   It now sends the string to the function and recives a tuple 
-   to unpack and display.
+Refactored, the processing component to a new module calculation core. 
+It now sends the string to the function and recives a tuple 
+to unpack and display.
 Answer Checker
 ----------------
-    The previous answer checker uses inputed equation from the previous basic
-    calculator and see if you know your answer.
+The previous answer checker uses inputed equation from the previous basic
+calculator and see if you know your answer.
+______Sprint 3______
+Answer Checker:
+------------------
+Answer checker core has been refactored and created a core for memory bank 
+and answer checker options.
+It also accepts how many questions they would like to enter.
 -New Content-
-2 more options will be completed soon
+Memory Bank
+----------------
+A random question where the user will be prompted with a random question and 
+they will have 3 chances to get it right before the answer is given.
+At the end of the game the total asked questions and the number correct answered
+questions is shown.
+
+It also accepts how many questions they would like to be asked for this specific
+game mode.
+Only uses addition, subtraction, and multiplication. The reasoon for that 
+is that divition problems have decimal places and arent easily verified 
+by the program.
+______Sprint 4______
+
 """
 
+import random
+
+
 def main():
+    """ Basic menu to send the user to other functions. """
     print("\n","_"*7,"MENU","_"*7,"\n1. Normal Calculator\n2. Answer Checker\
               \n3. Memory Bank\n4. Number Guesser\n5. Exit", sep='')
     
@@ -57,6 +80,13 @@ def main():
 
 
 def normalCalculator():
+    """
+    - Gathers equation information and sends it to the calculator_core function.
+    - Gets decoded answer back and splits the list apart.
+    - If the list length is not greater than 0 the function aborts.
+    - Prints out the solved equation.
+    """
+    print("\nJust Calculator\n")
     loop = True
     while loop == True:
         equate = input("Enter an equation or enter exit: ")
@@ -70,69 +100,106 @@ def normalCalculator():
         else:
             print("invalid input")
 def answerChecker():
+    """ 
+    - Asks the user how many equations they would like to enter
+    - Iterates through a for loop to take user equations and sends them to the calculator_core
+      function and send them back
+    - Returned equations are seperated and appended to lists(equation_list and answer_list)
+    - Sends both new lists to memory_answer_core function and asks the user to asnwer the questions.
+    """
+    print("\nAnswer Checker\n")
     equation_list = []
     answer_list = []
-    keep_going = True
+
+    c = int(input("How many questions would you like to input?"))
+    print("Format Example: Number1+Number2")
+    for _ in range(c):
+        x = input("Enter equation/s here > ")
+        equation_list.append(x)
+        answer = calculator_core(x)
+        answer_list.append(answer[2])
+    
+    answer_core(equation_list,answer_list,c) 
+    
+def memoryBank():
+    """
+    - Asks the user how many questions they want to be asked 
+    - The program will automatically generate the first and second number and choose between 
+      multiplication, subtraction or addition.
+    - Then the program sends the generated equations to the memory_answer_core function and 
+      asks the user to asnwer the questions.
+    """
+    print("\nMemory Bank\n")
+    int_range = ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14']
+    equation_list, answer_list, n, m, s = [],[],[],[],[]
+    c = int(input("How many questions would you like to be asked?"))
+    
+    for count in range(c):
+        r = random.randint(0, 14)
+        a = int_range[r]
+        n.append(a)
+        
+        operators = ['+','-','*']
+        r = random.randint(0, 2)
+        a = operators[r]
+        s.append(a)
+        
+        r = random.randint(0, 14)
+        a = int_range[r]
+        m.append(a)
+        
+        i = ''.join([n[count],s[count],m[count]])
+        answer = calculator_core(i)
+        answer_list.append(answer[2])
+        equation_list.append(i)
+        
+    answer_core(equation_list,answer_list,c)
+def numberGuesser():
+    """
+    - Ask the user to guess a number between 1-100
+    - If the user guesses the correct number congradulate them and send back to menu
+    - If the user guesses a number lower than the secret number tell them and let them guess again
+    - If the user guesses a number higher than the secret number tell them and let them guess again 
+    """
+    print("Number Guesser")
+    
+def answer_core(equation_list,answer_list,c):
+    equation_list = equation_list
+    answer_list = answer_list
     index = 0
     count = 0
     correct = 0
     incorrect = 0
-    list_length = 1
-    
-    while keep_going == True:
-        print("\nAnswer Checker")
-        print("1. User made questions\n2. Ten random questions\n3. Exit")
-        usr_inp = input("Enter choice here: ")
-        
-        if usr_inp == "1":
-            print("Please enter 5 equations with the format in the\
-                  \nparenthesis: (1+2)")
-            for a in range(5):
-                x = input(">")
-                equation_list.append(x)
-                answer = calculator_core(x)
-                answer_list.append(answer[2])
-        
-            while len(answer_list) > 0:
-                print(equation_list[index],"= ?")
-                i = int(input("Answer :"))
-                if i == answer_list[0]:
-                    print("That is correct!")
-                    correct += 1
-                    index += 1
-                    del answer_list[0]
-                    if index == 3:
-                        break
-                elif count == 2:
-                    print("Sorry but the answer was:", answer_list[0],"\n")
-                    incorrect += 1
-                    count = 0
-                    index += 1
-                    del answer_list[0]
-                elif i != answer_list[0]:
-                    print("Sorry that was incorrect")
-                    count += 1
-                    
-            print("\nYou got", correct, "correct and", incorrect, "incorrect out of 5")
-        elif usr_inp == "2":
-            pass
-        elif usr_inp == "3":
-            keep_going = False
-        else:
-            print("Please choose a valid option!")
 
-    
-def memoryBank():
-    print("Memory Bank")
-
-def numberGuesser():
-    print("Number Guesser")
+    while len(answer_list) > 0:
+        while len(answer_list) > 0:
+            print(equation_list[index],"= ?")
+            i = int(input("Answer :"))
+            
+            if i == answer_list[0]:
+                print("That is correct!")
+                correct += 1
+                index += 1
+                del answer_list[0]
+                if index == 3:
+                    break
+            elif count == 2:
+                print("Sorry but the answer was:", answer_list[0],"\n")
+                incorrect += 1
+                count = 0
+                index += 1
+                del answer_list[0]
+            elif i != answer_list[0]:
+                print("Sorry that was incorrect")
+                count += 1
+                
+    print("\nYou got", correct, "correct and", incorrect, "incorrect out of", c,
+          " questions.")
+    return
 
 
-    
 
-        
-        
+            
 def calculator_core(equate):
     """
      - Determines the type of equation entered by the operand seperating
