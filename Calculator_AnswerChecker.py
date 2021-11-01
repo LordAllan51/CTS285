@@ -85,9 +85,9 @@ def answerChecker():
         usr_inp = input("Enter choice here: ")
         
         if usr_inp == "1":
-            print("Please enter 3 equations with the format in the\
+            print("Please enter 5 equations with the format in the\
                   \nparenthesis: (1+2)")
-            for a in range(3):
+            for a in range(5):
                 x = input(">")
                 equation_list.append(x)
                 answer = calculator_core(x)
@@ -113,7 +113,7 @@ def answerChecker():
                     print("Sorry that was incorrect")
                     count += 1
                     
-            print("\nYou got", correct, "correct and", incorrect, "incorrect out of 10")
+            print("\nYou got", correct, "correct and", incorrect, "incorrect out of 5")
         elif usr_inp == "2":
             pass
         elif usr_inp == "3":
